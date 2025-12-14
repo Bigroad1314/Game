@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>景德镇制瓷 - 捧起泥土</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="step-label">Step 1</div>
+    <!-- 叙事文案 -->
+    <div class="narrative" id="narrative">
+        <p>在景德镇，这座以瓷器闻名的城市里，一件瓷器的生命，<br>
+总是从一团来自附近山坡的高岭土开始。<br>
+今天，从一只杯子出发，带你走近景德镇。</p>
+    </div>
+
+    <!-- 提示文字 -->
+    <div class="hint-text" id="hintText">点一下，把它捧在你手里。</div>
+
+    <!-- 进度条 - 一直显示 -->
+    <div class="progress-container">
+        <div class="progress-bar-wrapper">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText">器物生命 · 已开始（1/5）</div>
+    </div>
+
+    <!-- stage 容器 - 所有PNG重叠显示，水平垂直居中 -->
+    <div class="stage">
+        <!-- 背景层 - 作为尺寸参考 -->
+        <img src="1.png" alt="背景" class="background" id="backgroundImg">
+
+        <!-- 泥土 -->
+        <img src="3.png" alt="泥土" class="clay" id="clay">
+
+        <!-- 手部 -->
+        <img src="9.png" alt="手部" class="hands" id="hands">
+    </div>
+
+    <!-- 操作按钮 -->
+    <button class="action-button" id="actionButton">捧起这团泥土</button>
+
+    <!-- 转场遮罩层 - 用于淡出效果 -->
+    <div class="transition-overlay" id="transitionOverlay"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
