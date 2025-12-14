@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>景德镇制瓷 - 拉坯工艺</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'SimSun', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+            animation: pageFadeIn 0.8s ease-out;
+        }
+
+        .step-label {
+            position: fixed;
+            top: 10px;
+            left: 16px;
+            padding: 4px 12px;
+            font-size: 12px;
+            color: rgba(60, 45, 30, 0.8);
+            background: rgba(255, 252, 245, 0.95);
+            border-radius: 999px;
+            border: 1px solid rgba(180, 150, 120, 0.4);
+            z-index: 16;
+        }
+
+        @keyframes pageFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* stage 容器 - 宽高等于背景图尺寸，水平垂直居中 */
+        .stage {
+            position: relative;
+            width: auto;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 背景层 - 作为尺寸参考，相对定位 */
+        .background {
+            position: relative;
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            z-index: 1;
+        }
+
+        /* 所有PNG图片 - 绝对定位重叠显示 */
+        .stage .pottery-wheel,
+        .stage .clay-frame,
+        .stage .hands {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: auto;
+            height: auto;
+            display: block;
+        }
+
+        /* 陶轮底座 - 模拟从侧面看到的旋转效果（中心清晰，外围模糊） */
+        .pottery-wheel {
+            z-index: 2;
+            transform-origin: center center;
+            position: relative;
+        }
+
+        /* 底座旋转模糊效果 - 使用动态模糊模拟旋转 */
+        .pottery-wheel.rotating {
+            animation: wheelBlur 0.1s ease-in-out infinite;
+            filter: blur(0.3px);
+        }
+
+        @keyframes wheelBlur {
+            0%, 100% {
+                filter: blur(0.2px);
+            }
+            25% {
+                filter: blur(0.5px);
+            }
+            50% {
+                filter: blur(0.8px);
+            }
+            75% {
+                filter: blur(0.5px);
+            }
+        }
+
+        /* 泥坯帧 - 只显示当前帧，其余隐藏 */
+        .clay-frame {
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .clay-frame.active {
+            opacity: 1;
+        }
+
+        /* 手部 */
+        .hands {
+            z-index: 4;
+            transform-origin: center center;
+        }
+
+        /* 手部左右晃动动画 - 模拟转动盘子的动感 */
+        .hands.shaking {
+            animation: handShake 0.2s ease-in-out infinite;
+        }
+
+        @keyframes handShake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-3px);
+            }
+            50% {
+                transform: translateX(0);
+            }
+            75% {
+                transform: translateX(3px);
+            }
+        }
+
+        /* 叙事文本区域 - 绝对定位，不影响场景居中 */
+        .narrative {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            z-index: 10;
+            background: rgba(255, 248, 240, 0.85);
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            font-size: 18px;
+            line-height: 1.8;
+            color: #5a4a3a;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+            min-height: 60px;
+        }
+
+        .narrative p {
+            margin: 8px 0;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .narrative p:first-child {
+            margin-top: 0;
+        }
+
+        .narrative p:last-child {
+            margin-bottom: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 进度条容器 - 一直显示，醒目位置（与Step1一致） */
+        .progress-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 200px;
+            z-index: 15;
+            background: rgba(255, 248, 240, 0.95);
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .progress-bar-wrapper {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 248, 240, 0.6);
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #d4a574 0%, #b8956a 100%);
+            border-radius: 5px;
+            width: 40%;
+            transition: width 0.6s ease-out;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 13px;
+            color: #5a4a3a;
+            font-weight: 500;
+        }
+
+        /* 按钮 - 绝对定位，不影响场景居中 */
+        .action-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            padding: 14px 40px;
+            font-size: 18px;
+            color: #5a4a3a;
+            background: rgba(255, 248, 240, 0.9);
+            border: 2px solid #d4a574;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            font-family: 'Microsoft YaHei', 'SimSun', serif;
+        }
+
+        .action-button:hover {
+            background: rgba(255, 248, 240, 1);
+            border-color: #b8956a;
+            transform: translateX(-50%) translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .action-button:active {
+            transform: translateX(-50%) translateY(0);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .action-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: translateX(-50%);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .narrative {
+                font-size: 16px;
+                padding: 15px 20px;
+            }
+
+            .action-button {
+                font-size: 16px;
+                padding: 12px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="step-label">Step 2</div>
+    <!-- 叙事文本 - 初始为空，逐段显示 -->
+    <div class="narrative" id="narrative"></div>
+
+    <!-- stage 容器 - 所有PNG重叠显示，水平垂直居中 -->
+    <div class="stage">
+        <!-- 背景层 - 作为尺寸参考 -->
+        <img src="1.png" alt="背景" class="background" id="backgroundImg">
+
+        <!-- 陶轮底座 - 原地Z轴旋转 -->
+        <img src="2.png" alt="陶轮" class="pottery-wheel" id="potteryWheel">
+
+        <!-- 泥坯帧 - 5帧PNG，只显示当前帧 -->
+        <img src="3.png" alt="泥坯帧1" class="clay-frame active" data-frame="0">
+        <img src="4.png" alt="泥坯帧2" class="clay-frame" data-frame="1">
+        <img src="5.png" alt="泥坯帧3" class="clay-frame" data-frame="2">
+        <img src="6.png" alt="泥坯帧4" class="clay-frame" data-frame="3">
+        <img src="7.png" alt="泥坯帧5" class="clay-frame" data-frame="4">
+
+        <!-- 手部 -->
+        <img src="8.png" alt="手部" class="hands" id="hands">
+    </div>
+
+    <!-- 进度条 - 右上角显示（与Step1一致） -->
+    <div class="progress-container" id="progressContainer">
+        <div class="progress-bar-wrapper">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText">器物生命 · 已开始（2/5）</div>
+    </div>
+
+    <!-- 操作按钮 - 放在 stage 下方，水平居中 -->
+    <button class="action-button" id="actionButton">点击拉坯</button>
+
+    <script>
+        // 状态管理
+        let currentFrame = 0; // 当前泥坯帧索引 0-4
+        let clickCount = 0;
+        const maxClicks = 5; // 总共5帧，需要5次点击
+        const initialProgress = 40; // Step2初始进度40%（Step1是20%）
+        const finalProgress = 100; // 最终进度100%
+        const progressStep = (finalProgress - initialProgress) / maxClicks; // 每次点击增加12%（60% ÷ 5）
+
+        // DOM 元素
+        const clayFrames = document.querySelectorAll('.clay-frame');
+        const potteryWheel = document.getElementById('potteryWheel');
+        const hands = document.getElementById('hands');
+        const narrative = document.getElementById('narrative');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        const actionButton = document.getElementById('actionButton');
+
+        // 叙事文本内容 - 原来的五句
+        const narratives = [
+            "拉坯最考验的是手感和心气。",
+            "每一次旋转，都在塑造它的未来。",
+            "景德镇的杯子，要轻、要薄，还要能撑住上千度的窑火。",
+            "这一只杯子，在你的手里完成了它的第一个生命阶段。",
+            "从泥土到器物，每一步都是匠心的见证。"
+        ];
+        
+        // 引导语 - 从step1切换到step2时显示
+        const introText = "现在，让我们开始拉坯。";
+
+        // 更新泥坯帧 - 只显示当前帧，其余隐藏
+        function updateClayFrame() {
+            clayFrames.forEach((frame, index) => {
+                if (index === currentFrame) {
+                    frame.classList.add('active');
+                } else {
+                    frame.classList.remove('active');
+                }
+            });
+        }
+
+        // 更新叙事文本 - 每次只显示当前段
+        function updateNarrative() {
+            // 清空现有内容
+            narrative.innerHTML = '';
+            
+            // 只显示当前帧对应的段落
+            if (currentFrame < narratives.length && narratives[currentFrame]) {
+                const p = document.createElement('p');
+                p.textContent = narratives[currentFrame];
+                p.style.animation = 'fadeIn 0.5s ease-in';
+                narrative.appendChild(p);
+            }
+        }
+        
+        // 显示引导语 - 初始化时调用
+        function showIntroText() {
+            narrative.innerHTML = '';
+            const p = document.createElement('p');
+            p.textContent = introText;
+            p.style.animation = 'fadeIn 0.5s ease-in';
+            narrative.appendChild(p);
+        }
+
+        // 更新进度条 - Step2固定显示2/5，进度条宽度也固定为40%（因为后面还有step3、step4、step5）
+        function updateProgress() {
+            // Step2的进度条宽度固定为40%，不随点击增长
+            progressBar.style.width = initialProgress + '%';
+            
+            // Step2固定显示（2/5），不随点击变化
+            progressText.textContent = '器物生命 · 已开始（2/5）';
+        }
+
+        // 开始底座旋转模糊效果
+        function startWheelRotation() {
+            potteryWheel.classList.add('rotating');
+        }
+
+        // 停止底座旋转模糊效果
+        function stopWheelRotation() {
+            potteryWheel.classList.remove('rotating');
+        }
+
+        // 开始手部晃动
+        function startHandShake() {
+            hands.classList.add('shaking');
+        }
+
+        // 停止手部晃动
+        function stopHandShake() {
+            hands.classList.remove('shaking');
+        }
+
+        // 处理点击事件
+        function handleClick() {
+            // 如果已完成，不再响应
+            if (clickCount >= maxClicks) {
+                return;
+            }
+
+            clickCount++;
+            currentFrame = clickCount - 1; // 0-4对应5帧
+            
+            // 开始底座旋转模糊效果
+            startWheelRotation();
+            
+            // 开始手部左右晃动
+            startHandShake();
+            
+            // 更新泥坯帧
+            updateClayFrame();
+            
+            // 更新叙事文本
+            updateNarrative();
+            
+            // 更新进度条（每次20%）
+            updateProgress();
+            
+            // 如果完成（第五帧），禁用按钮并更新文案
+            if (clickCount >= maxClicks) {
+                // 进度条保持40%（2/5），不增长
+                updateProgress();
+                
+                // 延迟停止动画，让用户看到完成效果
+                setTimeout(() => {
+                    stopWheelRotation();
+                    stopHandShake();
+                }, 1000);
+                actionButton.disabled = false;
+                actionButton.textContent = '拉坯完成';
+                // 确保显示最后一帧
+                currentFrame = 4;
+                updateClayFrame();
+                updateNarrative();
+                
+                // 移除旧的点击事件监听器，添加新的跳转逻辑
+                actionButton.removeEventListener('click', handleClick);
+                actionButton.addEventListener('click', () => {
+                    // 淡出转场
+                    const overlay = document.createElement('div');
+                    overlay.className = 'transition-overlay';
+                    overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 248, 240, 0); z-index: 1000; pointer-events: none; transition: background 0.8s ease-out;';
+                    document.body.appendChild(overlay);
+                    
+                    setTimeout(() => {
+                        overlay.style.background = 'rgba(255, 248, 240, 1)';
+                        overlay.style.pointerEvents = 'all';
+                    }, 10);
+                    
+                    setTimeout(() => {
+                        window.location.href = '../step3/index.html';
+                    }, 800);
+                });
+            }
+        }
+
+        // 绑定点击事件
+        actionButton.addEventListener('click', handleClick);
+
+        // 初始化
+        updateClayFrame();
+        // 初始显示引导语"现在，让我们开始拉坯。"
+        showIntroText();
+        // 初始化进度条为40%（2/5）
+        updateProgress();
+    </script>
+</body>
+</html>
+
