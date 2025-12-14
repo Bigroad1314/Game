@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>景德镇制瓷 - 取出与相伴</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="step-label">Step 5</div>
+    <!-- 进度条容器 - 一直显示，右上角 -->
+    <div class="progress-container" id="progressContainer">
+        <div class="progress-bar-wrapper">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText">器物生命 · 已开始（5/5）</div>
+    </div>
+
+    <!-- 主标题 -->
+    <div class="main-title" id="mainTitle">Step 5 · 取出与相伴</div>
+
+    <!-- 场景1：从窑炉中取出瓷器 -->
+    <div class="scene scene-1 active" id="scene1">
+        <div class="stage">
+            <img src="1.png" alt="背景" class="background">
+        </div>
+
+        <!-- 场景1文案 -->
+        <div class="scene-narrative narrative-scene1" id="narrative1">
+            <div class="scene-subtitle">走出火焰的那一刻</div>
+            <div class="scene-content">
+                <p>高温渐渐退去，景德镇的窑门缓缓开启。</p>
+                <p>匠人小心地将烧好的瓷器从火光中取出，检查釉色、纹理与形制，就像一次次为这座瓷都把关。</p>
+                <p>你的那只杯子，也在这一刻定型——从脆弱的素胎，变成在瓷都诞生的真正瓷器。</p>
+            </div>
+        </div>
+
+        <!-- 主按钮 -->
+        <button class="action-button" id="nextButton1">取出瓷器成品</button>
+    </div>
+
+    <!-- 场景2：成品回到日常 -->
+    <div class="scene scene-2" id="scene2">
+        <div class="stage">
+            <img src="2.png" alt="背景" class="background">
+            <!-- 杯子图 - 根据选择动态显示（只在第二幕显示） -->
+            <img src="" alt="杯子" class="cup-image cup-scene2" id="cupImage2" style="display: none;">
+        </div>
+
+        <!-- 场景2文案 -->
+        <div class="scene-narrative narrative-scene2" id="narrative2">
+            <div class="scene-subtitle">回到你手心的生活器物</div>
+            <div class="scene-content">
+                <p>刚刚从窑火中走出的杯子，终于来到你面前。</p>
+                <p>无论是清晨的一杯茶，还是夜深时的一杯温水，</p>
+                <p>它都会在你伸手可及的地方，静静地陪你，把这次旅程的记忆留在日常里。</p>
+                <p>你在旅程中做的每一个选择——形制、纹样、文字</p>
+                <p>都已经被烧进这只杯子里，成为只属于你和景德镇的故事。</p>
+            </div>
+        </div>
+
+        <!-- 主按钮 -->
+        <button class="action-button" id="nextButton2">完成景德镇之旅</button>
+    </div>
+
+    <!-- 转场遮罩层 - 用于淡出效果 -->
+    <div class="transition-overlay" id="transitionOverlay"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
