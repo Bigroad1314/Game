@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>景德镇制瓷 - 画坯工艺</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="step-label">Step 3</div>
+    <!-- 进度条容器 - 一直显示，右上角 -->
+    <div class="progress-container" id="progressContainer">
+        <div class="progress-bar-wrapper">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText">器物生命 · 旅程已开始（3/5）</div>
+    </div>
+
+    <!-- 场景1：故事引入 -->
+    <div class="scene scene-1 active" id="scene1">
+        <div class="stage">
+            <img src="1.png" alt="背景" class="background">
+        </div>
+        
+        <!-- 左侧文案区域 -->
+        <div class="narrative narrative-left" id="narrative1">
+            <p class="fade-in-delay-0">在景德镇的古窑街区，有专门的画坯师，</p>
+            <p class="fade-in-delay-0">他们一笔一画，把这座城市的故事画在瓷器上。</p>
+            <p class="fade-in-delay-1">有人画景德镇的山水，把远行归来的路都留在杯上</p>
+            <p class="fade-in-delay-1">有人画花鸟，把窑火小城的日常生机和富贵吉祥带进杯中；</p>
+            <p class="fade-in-delay-1">也有人只写下一句，给自己看的话，当作来景德镇旅行的一段私人记忆。</p>
+        </div>
+
+        <!-- 底部按钮 -->
+        <button class="action-button" id="nextButton1">选择我的杯子</button>
+    </div>
+
+    <!-- 场景2：三选一 -->
+    <div class="scene scene-2" id="scene2">
+        <div class="stage">
+            <img src="2.png" alt="背景" class="background">
+        </div>
+
+        <!-- 上方提示语 -->
+        <div class="narrative narrative-top" id="narrative2">
+            <p>你想让这只杯子，讲哪一种关于景德镇的故事？</p>
+        </div>
+
+        <!-- 选项区域 -->
+        <div class="options-container" id="optionsContainer">
+            <!-- 选项A：山水 -->
+            <div class="option-card" data-option="A" id="optionA">
+                <div class="option-icon">
+                    <img src="3.png" alt="山水">
+                </div>
+                <div class="option-title">山水</div>
+                <div class="option-subtitle">山水 · 关于远行与归来</div>
+            </div>
+
+            <!-- 选项B：花鸟 -->
+            <div class="option-card" data-option="B" id="optionB">
+                <div class="option-icon">
+                    <img src="4.png" alt="花鸟">
+                </div>
+                <div class="option-title">花鸟</div>
+                <div class="option-subtitle">花鸟 · 关于富贵与吉祥</div>
+            </div>
+
+            <!-- 选项C：文字 -->
+            <div class="option-card" data-option="C" id="optionC">
+                <div class="option-icon">
+                    <img src="5.png" alt="文字">
+                </div>
+                <div class="option-title">文字</div>
+                <div class="option-subtitle">文字 · 关于祝福与纪念</div>
+            </div>
+        </div>
+
+        <!-- 选择提示文案（浮现在中央偏上） -->
+        <div class="selection-feedback" id="selectionFeedback">
+            <p>你为这只杯子选好了它的故事，也为自己想象中的景德镇之旅选好了一个开头。</p>
+        </div>
+    </div>
+
+    <!-- 场景3：展示成品 -->
+    <div class="scene scene-3" id="scene3">
+        <div class="stage">
+            <img src="2.png" alt="背景" class="background">
+            <!-- 成品杯子图 - 根据选择动态显示 -->
+            <img src="" alt="成品杯子" class="product-image" id="productImage" style="display: none;">
+        </div>
+
+        <!-- 场景3文案 - 根据选择动态显示 -->
+        <div class="narrative narrative-scene3" id="narrative3"></div>
+
+        <!-- 底部按钮 -->
+        <button class="action-button" id="nextButton3">入窑</button>
+    </div>
+
+    <!-- 转场遮罩层 - 用于淡出效果 -->
+    <div class="transition-overlay" id="transitionOverlay"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
