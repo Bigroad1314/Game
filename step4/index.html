@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>景德镇制瓷 - 入窑烧制</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="step-label">Step 4</div>
+    <!-- 进度条容器 - 一直显示，右上角 -->
+    <div class="progress-container" id="progressContainer">
+        <div class="progress-bar-wrapper">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText">器物生命 · 已开始（4/5）</div>
+    </div>
+
+    <!-- 场景1：添柴升温 -->
+    <div class="scene scene-1 active" id="scene1">
+        <div class="stage">
+            <img src="1.png" alt="背景" class="background">
+        </div>
+
+        <!-- 温度显示牌 -->
+        <div class="temperature-display" id="temperatureDisplay">
+            <div class="temperature-label">当前温度：</div>
+            <div class="temperature-value" id="temperatureValue">900</div>
+            <div class="temperature-unit">℃</div>
+        </div>
+
+        <!-- 叙事文案 -->
+        <div class="narrative narrative-top" id="narrative1">
+            <p class="fade-in-delay-0">一件瓷器要在窑里经历上千度的考验，</p>
+            <p class="fade-in-delay-0">就像景德镇这座城市，几百年来在窑火中一点点淬炼出自己的名声。</p>
+            <p class="fade-in-delay-1">成与败，往往只差在细节，而这一刻，只能等待。</p>
+        </div>
+
+        <!-- 说明文案 -->
+        <div class="hint-text" id="hintText">你需要往窑里添柴，把温度慢慢烧到合适的温度。</div>
+
+        <!-- 柴火区域 -->
+        <div class="firewood-container" id="firewoodContainer">
+            <div class="firewood-item" data-firewood="3" draggable="true" id="firewood3">
+                <img src="3.png" alt="柴火">
+            </div>
+            <div class="firewood-item" data-firewood="4" draggable="true" id="firewood4">
+                <img src="4.png" alt="柴火">
+            </div>
+            <div class="firewood-item" data-firewood="5" draggable="true" id="firewood5">
+                <img src="5.png" alt="柴火">
+            </div>
+            <div class="firewood-item" data-firewood="6" draggable="true" id="firewood6">
+                <img src="6.png" alt="柴火">
+            </div>
+            <div class="firewood-item" data-firewood="7" draggable="true" id="firewood7">
+                <img src="7.png" alt="柴火">
+            </div>
+            <div class="firewood-item" data-firewood="8" draggable="true" id="firewood8">
+                <img src="8.png" alt="柴火">
+            </div>
+        </div>
+
+        <!-- 窑口拖放区域 -->
+        <div class="kiln-drop-zone" id="kilnDropZone"></div>
+
+        <!-- 底部按钮 -->
+        <button class="action-button" id="fireButton" style="display: none;">点火，开始烧制</button>
+    </div>
+
+    <!-- 场景2：入窑烧制 -->
+    <div class="scene scene-2" id="scene2">
+        <div class="stage">
+            <img src="2.png" alt="背景" class="background">
+        </div>
+
+        <!-- 温度显示（场景2） -->
+        <div class="temperature-display temperature-display-scene2" id="temperatureDisplay2">
+            <div class="temperature-label">窑温：约</div>
+            <div class="temperature-value" id="temperatureValue2">1300</div>
+            <div class="temperature-unit">℃</div>
+        </div>
+
+        <!-- 叙事文案 -->
+        <div class="narrative narrative-top" id="narrative2">
+            <p>一切准备就绪，</p>
+            <p>剩下的，只能交给火与时间。</p>
+        </div>
+
+        <!-- 烧制进度条 -->
+        <div class="firing-progress-container" id="firingProgressContainer">
+            <div class="firing-progress-label">烧制中……</div>
+            <div class="firing-progress-bar-wrapper">
+                <div class="firing-progress-bar" id="firingProgressBar"></div>
+            </div>
+        </div>
+
+        <!-- 底部按钮 -->
+        <button class="action-button" id="completeButton" style="display: none;">查看烧成的杯子</button>
+    </div>
+
+    <!-- 转场遮罩层 - 用于淡出效果 -->
+    <div class="transition-overlay" id="transitionOverlay"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

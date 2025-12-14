@@ -1,0 +1,457 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', 'SimSun', serif;
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: pageFadeIn 0.8s ease-out;
+}
+
+.step-label {
+    position: fixed;
+    top: 10px;
+    left: 16px;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: rgba(60, 45, 30, 0.8);
+    background: rgba(255, 252, 245, 0.95);
+    border-radius: 999px;
+    border: 1px solid rgba(180, 150, 120, 0.4);
+    z-index: 16;
+}
+
+@keyframes pageFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* 场景容器 - 所有场景共用，通过 active 类控制显示 */
+.scene {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+}
+
+.scene.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* stage 容器 - 宽高等于背景图尺寸，水平垂直居中 */
+.stage {
+    position: relative;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* 背景层 */
+.background {
+    position: relative;
+    display: block;
+    width: auto;
+    height: auto;
+    z-index: 1;
+}
+
+/* 进度条容器 - 一直显示，右上角（与Step1/Step2/Step3一致） */
+.progress-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 200px;
+    z-index: 15;
+    background: rgba(255, 248, 240, 0.95);
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.progress-bar-wrapper {
+    width: 100%;
+    height: 10px;
+    background: rgba(255, 248, 240, 0.6);
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 8px;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #d4a574 0%, #b8956a 100%);
+    border-radius: 5px;
+    width: 80%;
+    transition: width 0.6s ease-out;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.progress-text {
+    text-align: center;
+    font-size: 13px;
+    color: #5a4a3a;
+    font-weight: 500;
+}
+
+/* 温度显示牌 */
+.temperature-display {
+    position: fixed;
+    top: 20%;
+    right: 10%;
+    z-index: 12;
+    background: rgba(255, 248, 240, 0.95);
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border: 2px solid #d4a574;
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    font-size: 20px;
+    color: #5a4a3a;
+    animation: fadeIn 0.8s ease-in;
+}
+
+.temperature-display-scene2 {
+    top: 15%;
+    right: 8%;
+    font-size: 18px;
+    padding: 15px 25px;
+}
+
+.temperature-label {
+    font-size: 16px;
+    color: #8b7355;
+}
+
+.temperature-value {
+    font-size: 32px;
+    font-weight: 600;
+    color: #b8956a;
+    transition: all 0.3s ease;
+    animation: temperaturePulse 0.5s ease-in-out;
+}
+
+.temperature-display-scene2 .temperature-value {
+    font-size: 28px;
+}
+
+.temperature-unit {
+    font-size: 18px;
+    color: #8b7355;
+}
+
+@keyframes temperaturePulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* 叙事文本区域 */
+.narrative {
+    position: fixed;
+    z-index: 10;
+    background: rgba(255, 248, 240, 0.85);
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    line-height: 1.8;
+    color: #5a4a3a;
+    pointer-events: none;
+}
+
+.narrative-top {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.narrative p {
+    margin: 8px 0;
+}
+
+.narrative p:first-child {
+    margin-top: 0;
+}
+
+.narrative p:last-child {
+    margin-bottom: 0;
+}
+
+/* 淡入动画 */
+.fade-in-delay-0 {
+    animation: fadeIn 0.8s ease-in 0.3s both;
+}
+
+.fade-in-delay-1 {
+    animation: fadeIn 0.8s ease-in 1.2s both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 提示文字 */
+.hint-text {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    font-size: 16px;
+    color: #5a4a3a;
+    opacity: 0.8;
+    text-align: center;
+    pointer-events: none;
+    animation: fadeIn 1.5s ease-in;
+    background: rgba(255, 248, 240, 0.9);
+    padding: 12px 20px;
+    border-radius: 6px;
+}
+
+/* 柴火容器 */
+.firewood-container {
+    position: fixed;
+    bottom: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    flex-wrap: wrap;
+}
+
+/* 柴火项 - 可拖拽 */
+.firewood-item {
+    width: 80px;
+    height: 80px;
+    cursor: grab;
+    transition: all 0.3s ease;
+    z-index: 11;
+    position: relative;
+}
+
+.firewood-item:hover {
+    transform: translateY(-5px) scale(1.1);
+    filter: brightness(1.1);
+}
+
+.firewood-item:active {
+    cursor: grabbing;
+    transform: scale(0.95);
+}
+
+.firewood-item.dragging {
+    opacity: 0.5;
+    z-index: 100;
+}
+
+.firewood-item.used {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.firewood-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* 窑口拖放区域 */
+.kiln-drop-zone {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 150px;
+    z-index: 8;
+    border: 2px dashed transparent;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.kiln-drop-zone.drag-over {
+    border-color: #d4a574;
+    background: rgba(212, 165, 116, 0.1);
+}
+
+/* 烧制进度条容器 */
+.firing-progress-container {
+    position: fixed;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    z-index: 10;
+    background: rgba(255, 248, 240, 0.95);
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.firing-progress-label {
+    text-align: center;
+    font-size: 16px;
+    color: #5a4a3a;
+    margin-bottom: 15px;
+}
+
+.firing-progress-bar-wrapper {
+    width: 100%;
+    height: 20px;
+    background: rgba(255, 248, 240, 0.6);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.firing-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #d4a574 0%, #b8956a 100%);
+    border-radius: 10px;
+    width: 0%;
+    transition: width 0.1s linear;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* 按钮 - 与Step1/Step2/Step3完全一致 */
+.action-button {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    padding: 14px 40px;
+    font-size: 18px;
+    color: #5a4a3a;
+    background: rgba(255, 248, 240, 0.9);
+    border: 2px solid #d4a574;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    font-family: 'Microsoft YaHei', 'SimSun', serif;
+}
+
+.action-button:hover {
+    background: rgba(255, 248, 240, 1);
+    border-color: #b8956a;
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.action-button:active {
+    transform: translateX(-50%) translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.action-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: translateX(-50%);
+}
+
+.action-button:disabled:hover {
+    transform: translateX(-50%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* 转场遮罩层 */
+.transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 248, 240, 0);
+    z-index: 1000;
+    pointer-events: none;
+    transition: background 0.8s ease-out;
+}
+
+.transition-overlay.fade-out {
+    background: rgba(255, 248, 240, 1);
+    pointer-events: all;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .narrative {
+        font-size: 16px;
+        padding: 15px 20px;
+    }
+
+    .temperature-display {
+        top: 15%;
+        right: 5%;
+        padding: 15px 20px;
+        font-size: 16px;
+    }
+
+    .temperature-value {
+        font-size: 24px;
+    }
+
+    .firewood-container {
+        gap: 15px;
+    }
+
+    .firewood-item {
+        width: 60px;
+        height: 60px;
+    }
+
+    .firing-progress-container {
+        width: 90%;
+        max-width: 350px;
+    }
+
+    .action-button {
+        font-size: 16px;
+        padding: 12px 30px;
+    }
+}
+
