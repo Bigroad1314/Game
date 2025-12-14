@@ -1,0 +1,1078 @@
+/* ========== 通用样式 ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', 'SimSun', serif;
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* ========== Step 容器样式 ========== */
+.step {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    display: none;
+}
+
+.step.active {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+}
+
+/* ========== Stage 容器 ========== */
+.stage {
+    position: relative;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.background {
+    position: relative;
+    display: block;
+    width: auto;
+    height: auto;
+    z-index: 1;
+}
+
+/* ========== Step 1 样式 ========== */
+.step1 .stage .clay,
+.step1 .stage .hands {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    display: block;
+}
+
+.step1 .clay {
+    z-index: 2;
+}
+
+.step1 .hands {
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 1s ease-in, opacity 2s ease-out;
+}
+
+.step1 .hands.showing {
+    opacity: 1;
+}
+
+.step1 .hands.fading-out {
+    opacity: 0.3;
+}
+
+.step1 .narrative {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+    z-index: 10;
+    background: rgba(255, 248, 240, 0.85);
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    line-height: 1.8;
+    color: #5a4a3a;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+    animation: fadeIn 1s ease-in;
+}
+
+.step1 #narrative1 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: translateX(-50%) !important;
+}
+
+.step1 .narrative p {
+    margin: 8px 0;
+}
+
+.step1 .narrative p:first-child {
+    margin-top: 0;
+}
+
+.step1 .narrative p:last-child {
+    margin-bottom: 0;
+}
+
+/* ========== Step 2 样式 ========== */
+.step2 .stage .pottery-wheel,
+.step2 .stage .clay-frame,
+.step2 .stage .hands {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    display: block;
+}
+
+.step2 .pottery-wheel {
+    z-index: 2;
+    transform-origin: center center;
+    position: relative;
+}
+
+.step2 .pottery-wheel.rotating {
+    animation: wheelBlur 0.1s ease-in-out infinite;
+    filter: blur(0.3px);
+}
+
+@keyframes wheelBlur {
+    0%, 100% {
+        filter: blur(0.2px);
+    }
+    25% {
+        filter: blur(0.5px);
+    }
+    50% {
+        filter: blur(0.8px);
+    }
+    75% {
+        filter: blur(0.5px);
+    }
+}
+
+.step2 .clay-frame {
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.step2 .clay-frame.active {
+    opacity: 1;
+}
+
+.step2 .hands {
+    z-index: 4;
+    transform-origin: center center;
+}
+
+.step2 .hands.shaking {
+    animation: handShake 0.2s ease-in-out infinite;
+}
+
+@keyframes handShake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-3px);
+    }
+    50% {
+        transform: translateX(0);
+    }
+    75% {
+        transform: translateX(3px);
+    }
+}
+
+.step2 .narrative {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+    z-index: 10;
+    background: rgba(255, 248, 240, 0.85);
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    line-height: 1.8;
+    color: #5a4a3a;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+    min-height: 60px;
+}
+
+.step2 .narrative p {
+    margin: 8px 0;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.step2 .narrative p:first-child {
+    margin-top: 0;
+}
+
+.step2 .narrative p:last-child {
+    margin-bottom: 0;
+}
+
+/* ========== Step 3 样式 ========== */
+.step3 .scene {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+}
+
+.step3 .scene.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.step3 .progress-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 200px;
+    z-index: 15;
+    background: rgba(255, 248, 240, 0.95);
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.step3 .progress-bar-wrapper {
+    width: 100%;
+    height: 10px;
+    background: rgba(255, 248, 240, 0.6);
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 8px;
+}
+
+.step3 .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #d4a574 0%, #b8956a 100%);
+    border-radius: 5px;
+    width: 60%;
+    transition: width 0.6s ease-out;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.step3 .progress-text {
+    text-align: center;
+    font-size: 13px;
+    color: #5a4a3a;
+    font-weight: 500;
+}
+
+.step3 .narrative {
+    position: fixed;
+    z-index: 10;
+    background: rgba(255, 248, 240, 0.85);
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    line-height: 1.8;
+    color: #5a4a3a;
+    pointer-events: none;
+}
+
+.step3 .narrative-left {
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    width: 35%;
+    max-width: 400px;
+    text-align: left;
+}
+
+.step3 .narrative-top {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.step3 .narrative-scene3 {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    max-width: 700px;
+    text-align: center;
+    animation: fadeIn 0.8s ease-in;
+}
+
+.step3 .narrative p {
+    margin: 8px 0;
+}
+
+.step3 .narrative p:first-child {
+    margin-top: 0;
+}
+
+.step3 .narrative p:last-child {
+    margin-bottom: 0;
+}
+
+.step3 .fade-in-delay-0 {
+    animation: fadeIn 0.8s ease-in 0.3s both;
+}
+
+.step3 .fade-in-delay-1 {
+    animation: fadeIn 0.8s ease-in 1.2s both;
+}
+
+.step3 .options-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    flex-wrap: nowrap;
+}
+
+.step3 .option-card {
+    background: rgba(255, 248, 240, 0.9);
+    border: 2px solid #d4a574;
+    border-radius: 12px;
+    padding: 30px 25px;
+    width: 280px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
+}
+
+.step3 .option-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-color: #b8956a;
+}
+
+.step3 .option-card.selected {
+    background: rgba(255, 248, 240, 1);
+    border-color: #b8956a;
+    border-width: 3px;
+    box-shadow: 0 4px 16px rgba(212, 165, 116, 0.4);
+    transform: translateY(-3px);
+}
+
+.step3 .option-icon {
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step3 .option-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.step3 .option-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #5a4a3a;
+    margin-bottom: 8px;
+}
+
+.step3 .option-subtitle {
+    font-size: 14px;
+    color: #8b7355;
+    line-height: 1.5;
+}
+
+.step3 .selection-feedback {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 12;
+    background: rgba(255, 248, 240, 0.95);
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+    color: #5a4a3a;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+}
+
+.step3 .selection-feedback.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.step3 .selection-feedback p {
+    margin: 0;
+}
+
+.step3 .scene-3 .stage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step3 .product-image {
+    display: block;
+    position: fixed;
+    top: 180px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    max-width: 60%;
+    max-height: 70%;
+    z-index: 5;
+    animation: fadeIn 0.8s ease-in;
+    object-fit: contain;
+    background: transparent;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+.step3 .action-button {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    padding: 14px 40px;
+    font-size: 18px;
+    color: #5a4a3a;
+    background: rgba(255, 248, 240, 0.9);
+    border: 2px solid #d4a574;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    font-family: 'Microsoft YaHei', 'SimSun', serif;
+}
+
+.step3 .action-button:hover {
+    background: rgba(255, 248, 240, 1);
+    border-color: #b8956a;
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.step3 .action-button:active {
+    transform: translateX(-50%) translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.step3 .action-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: translateX(-50%);
+}
+
+.step3 .action-button:disabled:hover {
+    transform: translateX(-50%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ========== Step 4 样式 ========== */
+.step4 .scene {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+}
+
+.step4 .scene.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.step4 .temperature-display {
+    position: fixed;
+    top: 20%;
+    right: 10%;
+    z-index: 12;
+    background: rgba(255, 248, 240, 0.95);
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border: 2px solid #d4a574;
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    font-size: 20px;
+    color: #5a4a3a;
+    animation: fadeIn 0.8s ease-in;
+}
+
+.step4 .temperature-display-scene2 {
+    top: 15%;
+    right: 8%;
+    font-size: 18px;
+    padding: 15px 25px;
+}
+
+.step4 .temperature-label {
+    font-size: 16px;
+    color: #8b7355;
+}
+
+.step4 .temperature-value {
+    font-size: 32px;
+    font-weight: 600;
+    color: #b8956a;
+    transition: all 0.3s ease;
+    animation: temperaturePulse 0.5s ease-in-out;
+}
+
+.step4 .temperature-display-scene2 .temperature-value {
+    font-size: 28px;
+}
+
+.step4 .temperature-unit {
+    font-size: 18px;
+    color: #8b7355;
+}
+
+@keyframes temperaturePulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.step4 .narrative {
+    position: fixed;
+    z-index: 10;
+    background: rgba(255, 248, 240, 0.85);
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    line-height: 1.8;
+    color: #5a4a3a;
+    pointer-events: none;
+}
+
+.step4 .narrative-top {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.step4 .narrative p {
+    margin: 8px 0;
+}
+
+.step4 .narrative p:first-child {
+    margin-top: 0;
+}
+
+.step4 .narrative p:last-child {
+    margin-bottom: 0;
+}
+
+.step4 .fade-in-delay-0 {
+    animation: fadeIn 0.8s ease-in 0.3s both;
+}
+
+.step4 .fade-in-delay-1 {
+    animation: fadeIn 0.8s ease-in 1.2s both;
+}
+
+.step4 .hint-text {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    font-size: 16px;
+    color: #5a4a3a;
+    opacity: 0.8;
+    text-align: center;
+    pointer-events: none;
+    animation: fadeIn 1.5s ease-in;
+    background: rgba(255, 248, 240, 0.9);
+    padding: 12px 20px;
+    border-radius: 6px;
+    transition: opacity 1s ease;
+}
+
+.step4 .hint-text.fade-out {
+    opacity: 0;
+}
+
+.step4 .firewood-container {
+    position: fixed;
+    bottom: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    flex-wrap: wrap;
+}
+
+.step4 .firewood-item {
+    width: 80px;
+    height: 80px;
+    cursor: default;
+    z-index: 11;
+    position: relative;
+    pointer-events: none;
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+}
+
+.step4 .firewood-item.fly-into-kiln {
+    transform: translate(var(--to-x, 0), var(--to-y, 0)) scale(0.4);
+    opacity: 0;
+}
+
+.step4 .firewood-item.into-kiln {
+    animation: moveFirewoodToKiln 1.4s ease forwards;
+}
+
+@keyframes moveFirewoodToKiln {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    40% {
+        transform: translateY(-60px) scale(1.05);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-20px, -220px) scale(0.8);
+        opacity: 0;
+    }
+}
+
+.step4 .firewood-item.used {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.step4 .firewood-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.step4 .kiln-drop-zone {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 150px;
+    z-index: 8;
+    border: 2px dashed transparent;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.step4 .flame-wrapper {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    pointer-events: none;
+}
+
+.step4 #fireImage,
+.step4 .fire-image {
+    position: static;
+    width: auto;
+    height: auto;
+    max-height: 130px;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.step4 .firing-progress-container {
+    position: fixed;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    z-index: 10;
+    background: rgba(255, 248, 240, 0.95);
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.step4 .firing-progress-label {
+    text-align: center;
+    font-size: 16px;
+    color: #5a4a3a;
+    margin-bottom: 15px;
+}
+
+.step4 .firing-progress-bar-wrapper {
+    width: 100%;
+    height: 20px;
+    background: rgba(255, 248, 240, 0.6);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.step4 .firing-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #d4a574 0%, #b8956a 100%);
+    border-radius: 10px;
+    width: 0%;
+    transition: width 0.1s linear;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* ========== Step 5 样式 ========== */
+.step5 .scene {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+}
+
+.step5 .scene.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.step5 .progress-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 200px;
+    z-index: 15;
+    background: rgba(255, 248, 240, 0.95);
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.step5 .progress-bar-wrapper {
+    width: 100%;
+    height: 10px;
+    background: rgba(255, 248, 240, 0.6);
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 8px;
+}
+
+.step5 .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #d4a574 0%, #b8956a 100%);
+    border-radius: 5px;
+    width: 100%;
+    transition: width 0.6s ease-out;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.step5 .progress-text {
+    text-align: center;
+    font-size: 13px;
+    color: #5a4a3a;
+    font-weight: 500;
+}
+
+.step5 .main-title {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 12;
+    font-size: 20px;
+    font-weight: 600;
+    color: #5a4a3a;
+    text-align: center;
+    animation: fadeIn 0.8s ease-in;
+}
+
+.step5 .cup-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    z-index: 2;
+    object-fit: contain;
+    background: transparent;
+    animation: fadeIn 0.8s ease-in;
+    display: block;
+}
+
+.step5 .cup-scene2 {
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: auto;
+    max-width: 80%;
+    max-height: 70vh;
+    z-index: 5;
+}
+
+.step5 .scene-narrative {
+    position: fixed;
+    z-index: 10;
+    background: rgba(255, 248, 240, 0.85);
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    line-height: 1.8;
+    color: #5a4a3a;
+    pointer-events: none;
+    animation: fadeIn 0.8s ease-in;
+}
+
+.step5 .narrative-scene1 {
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.step5 .narrative-scene2 {
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.step5 .scene-subtitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #5a4a3a;
+    margin-bottom: 15px;
+}
+
+.step5 .scene-content {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #5a4a3a;
+}
+
+.step5 .scene-content p {
+    margin: 8px 0;
+}
+
+.step5 .scene-content p:first-child {
+    margin-top: 0;
+}
+
+.step5 .scene-content p:last-child {
+    margin-bottom: 0;
+}
+
+.step5 .action-button {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    padding: 14px 40px;
+    font-size: 18px;
+    color: #5a4a3a;
+    background: rgba(255, 248, 240, 0.9);
+    border: 2px solid #d4a574;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    font-family: 'Microsoft YaHei', 'SimSun', serif;
+}
+
+.step5 .action-button:hover {
+    background: rgba(255, 248, 240, 1);
+    border-color: #b8956a;
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.step5 .action-button:active {
+    transform: translateX(-50%) translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* ========== 通用动画 ========== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== 转场遮罩层 ========== */
+.transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 248, 240, 0);
+    z-index: 1000;
+    pointer-events: none;
+    transition: background 0.8s ease-out;
+}
+
+.transition-overlay.fade-out {
+    background: rgba(255, 248, 240, 1);
+    pointer-events: all;
+}
+
+/* ========== 响应式设计 ========== */
+@media (max-width: 768px) {
+    .step1 .narrative,
+    .step2 .narrative,
+    .step3 .narrative,
+    .step4 .narrative {
+        font-size: 16px;
+        padding: 15px 20px;
+    }
+
+    .step3 .narrative-left {
+        width: 80%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .step3 .options-container {
+        gap: 20px;
+        flex-direction: column;
+    }
+
+    .step3 .option-card {
+        width: 320px;
+        padding: 40px 30px;
+    }
+
+    .step3 .option-icon {
+        width: 240px;
+        height: 240px;
+    }
+
+    .step4 .temperature-display {
+        top: 15%;
+        right: 5%;
+        padding: 15px 20px;
+        font-size: 16px;
+    }
+
+    .step4 .temperature-value {
+        font-size: 24px;
+    }
+
+    .step4 .firewood-container {
+        gap: 15px;
+    }
+
+    .step4 .firewood-item {
+        width: 60px;
+        height: 60px;
+    }
+
+    .step4 .firing-progress-container {
+        width: 90%;
+        max-width: 350px;
+    }
+
+    .step5 .main-title {
+        font-size: 18px;
+        top: 15px;
+    }
+
+    .step5 .scene-narrative {
+        font-size: 16px;
+        padding: 15px 20px;
+    }
+
+    .step5 .scene-subtitle {
+        font-size: 18px;
+    }
+
+    .step5 .scene-content {
+        font-size: 14px;
+    }
+
+    .step5 .action-button {
+        font-size: 16px;
+        padding: 12px 30px;
+    }
+
+    .step5 .cup-scene2 {
+        width: 300px;
+        max-width: 90%;
+        max-height: 70vh;
+    }
+}
+

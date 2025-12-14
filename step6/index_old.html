@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>景德镇制瓷 · 完整体验（step1–step5）</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: #f5f2ea;
+      overflow: hidden;  /* 关键：禁止外层滚动条 */
+    }
+    .step-frame-wrapper {
+      width: 100%;
+      max-width: 100vw;
+      height: 100vh;          /* 每个 step 占满一屏高度，原页面在内部自己处理交互 */
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    .step-label {
+      position: absolute;
+      top: 10px;
+      left: 16px;
+      padding: 2px 10px;
+      font-size: 12px;
+      color: rgba(60, 45, 30, 0.8);
+      background: rgba(255, 252, 245, 0.9);
+      border-radius: 999px;
+      border: 1px solid rgba(180, 150, 120, 0.4);
+      z-index: 10;
+    }
+    .step-frame-inner {
+      position: relative;
+      width: 100%;
+      max-width: 100vw;
+      height: 100%;
+      overflow: hidden;
+    }
+    iframe.step-frame {
+      width: 100%;
+      height: 100%;
+      max-width: 100vw;
+      border: none;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- step1 -->
+  <section class="step-frame-wrapper">
+    <div class="step-frame-inner">
+      <div class="step-label">Step 1</div>
+      <iframe
+        class="step-frame"
+        src="../step1/index.html"
+        loading="lazy">
+      </iframe>
+    </div>
+  </section>
+
+  <!-- step2 -->
+  <section class="step-frame-wrapper">
+    <div class="step-frame-inner">
+      <div class="step-label">Step 2</div>
+      <iframe
+        class="step-frame"
+        src="../step2/index.html"
+        loading="lazy">
+      </iframe>
+    </div>
+  </section>
+
+  <!-- step3 -->
+  <section class="step-frame-wrapper">
+    <div class="step-frame-inner">
+      <div class="step-label">Step 3</div>
+      <iframe
+        class="step-frame"
+        src="../step3/index.html"
+        loading="lazy">
+      </iframe>
+    </div>
+  </section>
+
+  <!-- step4 -->
+  <section class="step-frame-wrapper">
+    <div class="step-frame-inner">
+      <div class="step-label">Step 4</div>
+      <iframe
+        class="step-frame"
+        src="../step4/index.html"
+        loading="lazy">
+      </iframe>
+    </div>
+  </section>
+
+  <!-- step5 -->
+  <section class="step-frame-wrapper">
+    <div class="step-frame-inner">
+      <div class="step-label">Step 5</div>
+      <iframe
+        class="step-frame"
+        src="../step5/index.html"
+        loading="lazy">
+      </iframe>
+    </div>
+  </section>
+</body>
+</html>
+
